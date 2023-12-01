@@ -1,7 +1,7 @@
-Class AOC2022.Base
+Class AOC2023.Base
 {
 
-Parameter Folder = "C:\devl\work\Cache\AOC\Files\2022\";
+Parameter Folder = "C:\devl\work\Cache\AOC\Files\2023\";
 
 // Parameter Folder = "/irisrun/repo/Files/";
 
@@ -27,7 +27,7 @@ ClassMethod GetInput(fn) As %Stream
     return stream
 }
 
-// d ##class(AOC2022.Day{D}).Run()
+// d ##class(AOC2023.Day{D}).Run()
 
 ClassMethod Run(verbose = 0, part = 0) [ Final ]
 {
