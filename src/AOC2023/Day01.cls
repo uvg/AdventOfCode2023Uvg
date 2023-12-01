@@ -16,7 +16,7 @@ ClassMethod Part1(verbose = 0) As %String [ Private ]
 		set num=$zstrip(record,"*A")
 		set calibration=$extract(num)_$extract(num,*)
 		set total=total+calibration
-		if verbose write !,line,"=",calibration,";",total
+		if verbose write !,line,?10,calibration,?20,total
 	}
 	set answer=total
 	quit answer
@@ -42,7 +42,7 @@ ClassMethod Part2(verbose = 0) As %String [ Private ]
 		}
 		set calibration=first_last
 		set total=total+calibration
-		if verbose write !,line,"=",calibration,";",total
+		if verbose write !,line,?10,calibration,?20,total
 	}
 	set answer=total
 	quit answer
