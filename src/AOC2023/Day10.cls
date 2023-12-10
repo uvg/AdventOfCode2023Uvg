@@ -18,11 +18,11 @@ ClassMethod Part1(verbose = 0) As %String [ Private ]
 		quit
 	}
 	if verbose write !,fromX,",",fromY
-	set answer=..GetFartest(fromX,fromY,.recordsArr)/2
+	set answer=..GetPipePathAndLength(fromX,fromY,.recordsArr)/2
 	quit answer
 }
 
-ClassMethod GetFartest(fromX As %Integer, fromY As %Integer, ByRef grid, Output visited) As %Integer
+ClassMethod GetPipePathAndLength(fromX As %Integer, fromY As %Integer, ByRef grid, Output visited) As %Integer
 {
 	kill visited
 	set right=$extract(grid(fromY),fromX+1)
@@ -110,7 +110,7 @@ ClassMethod Part2(verbose = 0) As %String [ Private ]
 		quit
 	}
 	if verbose write !,fromX,",",fromY
-	do ..GetFartest(fromX,fromY,.recordsArr,.visited)
+	do ..GetPipePathAndLength(fromX,fromY,.recordsArr,.visited)
 	if verbose write !!,"Before cleaning:" do ..GridDisplay(.recordsArr)
 	set y="",total=0
 	for  {
