@@ -122,6 +122,8 @@ ClassMethod Part2(verbose = 0) As %String [ Private ]
 		}
 	}
 	if verbose write !!,"After cleaning:" do ..GridDisplay(.recordsArr)
+	set $extract(recordsArr(fromY),fromX)=..GetStartingSymbol(fromX,fromY,.recordsArr)
+	if verbose write !!,"After changing start:" do ..GridDisplay(.recordsArr)
 	merge grid=recordsArr
 	for  {
 		set y=$order(recordsArr(y)) quit:y=""
@@ -141,6 +143,27 @@ ClassMethod Part2(verbose = 0) As %String [ Private ]
 	if verbose write !!,"After analyzing:" do ..GridDisplay(.grid)
 	set answer=total
 	quit answer
+}
+
+ClassMethod GetStartingSymbol(fromX As %Integer, fromY As %Integer, ByRef grid) As %String
+{
+	set right=$extract(grid(fromY),fromX+1) set:right="." right=""
+	set left=$extract(grid(fromY),fromX-1) set:left="." left=""
+	set up=$extract($get(grid(fromY-1)),fromX) set:up="." up=""
+	set down=$extract($get(grid(fromY+1)),fromX) set:down="." down=""
+	if '$length(left),'$length(up) quit "F"
+	if '$length(right),'$length(up) quit "7"
+	if '$length(left),'$length(down) quit "L"
+	if '$length(right),'$length(down) quit "J"
+	if '$length(left),'$length(right) quit "|"
+	if '$length(up),'$length(down) quit "-"
+	if $length(left),$length(right),"-FL"[left,"-7J"[right quit "-"
+	if $length(left),$length(up),"-FL"[left,"|7F"[up quit "J"
+	if $length(left),$length(down),"-FL"[left,"|LJ"[down quit "7"
+	if $length(right),$length(up),"-7J"[right,"|7F"[up quit "L"
+	if $length(right),$length(down),"-7J"[right,"|LJ"[down quit "F"
+	if $length(up),$length(down),"|7F"[up,"|LJ"[down quit "|"
+	quit "S"
 }
 
 ClassMethod GridDisplay(ByRef grid)
@@ -163,7 +186,8 @@ ClassMethod IsInside(x As %Integer, data As %String) As %Boolean
 	set count=0
 	for tx=x-1:-1:1 {
 		set ltr=$extract(data,tx)
-		if "|JLS"[ltr set count=count+1
+		if "|JL"[ltr set count=count+1
+		//if "|7F"[ltr set count=count+1
 	}
 	quit count#2
 }
