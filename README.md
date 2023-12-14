@@ -1,3 +1,8 @@
+ [![Quality Gate Status](https://community.objectscriptquality.com/api/project_badges/measure?project=intersystems_iris_community%2FAdventOfCode2023Uvg&metric=alert_status)](https://community.objectscriptquality.com/dashboard?id=intersystems_iris_community%2FAdventOfCode2023Uvg)
+ [![Reliability Rating](https://community.objectscriptquality.com/api/project_badges/measure?project=intersystems_iris_community%2FAdventOfCode2023Uvg&metric=reliability_rating)](https://community.objectscriptquality.com/dashboard?id=intersystems_iris_community%2FAdventOfCode2023Uvg)
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat&logo=AdGuard)](LICENSE)
+
 # aoc-2023-uvg
 This is the source code for my advent of code 2023 using objectscript classes.
 
