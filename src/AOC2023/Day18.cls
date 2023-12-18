@@ -102,7 +102,7 @@ ClassMethod FillGridView(ByRef gridView, Output gridFill)
 
 ClassMethod FoundStartPoint(ByRef grid, Output startX As %Integer, Output startY As %Integer)
 {
-	set y="",len=$length(grid(1)),startX=0,startY=0
+	set y=1,len=$length(grid(1)),startX=0,startY=0
 	for  {
 		set y=$order(grid(y)) quit:'$length(y)
 		set fromX=0,toX=0
