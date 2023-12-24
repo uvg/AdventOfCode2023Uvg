@@ -68,118 +68,47 @@ ClassMethod Part2(verbose = 0) As %String [ Private ]
 	}
 	if verbose zwrite x,y,z,dx,dy,dz
 	set d24Solve=##class(%SYS.Python).Import("d24")
-	set answer=d24Solve.calc(x(1),y(1),z(1),dx(1),dy(1),dz(1),x(2),y(2),z(2),dx(2),dy(2),dz(2),x(3),y(3),z(3),dx(3),dy(3),dz(3))
+	//set answer=d24Solve.calc(x(1),y(1),z(1),dx(1),dy(1),dz(1),x(2),y(2),z(2),dx(2),dy(2),dz(2),x(3),y(3),z(3),dx(3),dy(3),dz(3))
+	set answer=..Calc(x(1),y(1),z(1),dx(1),dy(1),dz(1),x(2),y(2),z(2),dx(2),dy(2),dz(2),x(3),y(3),z(3),dx(3),dy(3),dz(3))
 	quit answer
 }
 
-// ClassMethod Calc(x0 As %Integer, y0 As %Integer, z0 As %Integer, dx0 As %Integer, dy0 As %Integer, dz0 As %Integer, x1 As %Integer, y1 As %Integer, z1 As %Integer, dx1 As %Integer, dy1 As %Integer, dz1 As %Integer, x2 As %Integer, y2 As %Integer, z2 As %Integer, dx2 As %Integer, dy2 As %Integer, dz2 As %Integer) As %Integer [ Language = python ]
-
-/*ClassMethod Calc() As %Integer [ Language = python ]
+ClassMethod Calc(x0 As %Integer, y0 As %Integer, z0 As %Integer, dx0 As %Integer, dy0 As %Integer, dz0 As %Integer, x1 As %Integer, y1 As %Integer, z1 As %Integer, dx1 As %Integer, dy1 As %Integer, dz1 As %Integer, x2 As %Integer, y2 As %Integer, z2 As %Integer, dx2 As %Integer, dy2 As %Integer, dz2 As %Integer) As %Integer [ Language = python ]
 {
-import z3
-from z3 import Ints
-from z3 import Solver
-from z3 import CheckSatResult
-from z3 import unsat
-from z3 import unknown
+rx, ry, rz = Ints('rx ry rz')
+rvx, rvy, rvz = Ints('rvx rvy rvz')
+t0, t1, t2 = Ints('t0 t1 t2')
+answer = Int('answer')
 
-#rx, ry, rz = Ints('rx ry rz')
-#rvx, rvy, rvz = Ints('rvx rvy rvz')
-#t0, t1, t2 = Ints('t0 t1 t2')
-#answer = Ints('answer')
-
-
-
-x0=171178400007298
-y0=165283791547432
-z0=246565404194007
-dx0=190
-dy0=186
-dz0=60
-
-x1=250314870325177
-y1=283762496814661
-z1=272019235409859
-dx1=45
-dy1=15
-dz1=8
-
-x2=192727134181171
-y2=456146317292988
-z2=246796112051543
-dx2=22
-dy2=-541
-dz2=-70
-
-
-rx = Ints('rx')
-ry = Ints('ry')
-rz = Ints('rz')
-rvx = Ints('rvx')
-rvy = Ints('rvy')
-rvz = Ints('rvz')
-t0 = Ints('t0')
-t1 = Ints('t1')
-t2 = Ints('t2')
-answer = Ints('answer')
-
-
-#print((x0, y0, z0, dx0, dy0, dz0, x1, y1, z1, dx1, dy1, dz1, x2, y2, z2, dx2, dy2, dz2))
-#print((type(x0),type(x1),type(x2),type(dx0),type(dx1),type(dx2),type(y0),type(y1),type(y2),type(dy0),type(dy1),type(dy2),type(z0),type(z1),type(z2),type(dz0),type(dz1),type(dz2)))
+#Initiating a Z3 solver
 s=Solver()
 
-'''
-x0=171178400007298
-y0=165283791547432
-z0=246565404194007
-dx0=190
-dy0=186
-dz0=60
+#Adding the equations to the solver
+s.add(rx+t0*rvx == x0 + t0 * dx0)
+s.add(ry+t0*rvy==y0+t0*dy0)
+s.add(rz+t0*rvz==z0+t0*dz0)
+s.add(rx+t1*rvx==x1+t1*dx1)
+s.add(ry+t1*rvy==y1+t1*dy1)
+s.add(rz+t1*rvz==z1+t1*dz1)
+s.add(rx+t2*rvx==x2+t2*dx2)
+s.add(ry+t2*rvy==y2+t2*dy2)
+s.add(rz+t2*rvz==z2+t2*dz2)
+s.add(answer==rx+ry+rz)
 
-x1=250314870325177
-y1=283762496814661
-z1=272019235409859
-dx1=45
-dy1=15
-dz1=8
-
-x2=192727134181171
-y2=456146317292988
-z2=246796112051543
-dx2=22
-dy2=-541
-dz2=-70
-'''
-
-print("before adding")
-'''
-s.add(
-    rx+t0*rvx==171178400007298+t0*190,
-    ry+t0*rvy==165283791547432+t0*186,
-    rz+t0*rvz==246565404194007+t0*60,
-    rx+t1*rvx==250314870325177+t1*5,
-    ry+t1*rvy==283762496814661+t1*15,
-    rz+t1*rvz==272019235409859+t1*8,
-    rx+t2*rvx==192727134181171+t2*22,
-    ry+t2*rvy==456146317292988+t2*-541,
-    rz+t2*rvz==246796112051543+t2*-70,
-    answer==rx+ry+rz,
-)
-'''
-s.add(
-    rx + t0 * rvx == x0 + t0 * dx0,
-    ry == 200,
-    answer == rx + ry,
-)
-
-print("after adding")
+#Running the solver to check for an answer
 r=s.check()
-#print(s.model())
+
+#Return the answer
 if r==unsat or r==unknown:
     return -1
 else:
-    return s.model()[answer]
+    return s.model()[answer].as_long()
 }
-*/
+
+XData %import [ MimeType = application/python ]
+{
+from z3 import *
+}
+
 }
 
