@@ -67,7 +67,7 @@ ClassMethod Part2(verbose = 0) As %String [ Private ]
 		quit:line>3
 	}
 	if verbose zwrite x,y,z,dx,dy,dz
-	set d24Solve=##class(%SYS.Python).Import("d24")
+	//set d24Solve=##class(%SYS.Python).Import("d24")
 	//set answer=d24Solve.calc(x(1),y(1),z(1),dx(1),dy(1),dz(1),x(2),y(2),z(2),dx(2),dy(2),dz(2),x(3),y(3),z(3),dx(3),dy(3),dz(3))
 	set answer=..Calc(x(1),y(1),z(1),dx(1),dy(1),dz(1),x(2),y(2),z(2),dx(2),dy(2),dz(2),x(3),y(3),z(3),dx(3),dy(3),dz(3))
 	quit answer
