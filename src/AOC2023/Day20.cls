@@ -128,7 +128,7 @@ ClassMethod GetStopModules(stopModule As %String, ByRef modulesArr, stopPulse As
 	set allCon=1
 	for  {
 		quit:'allCon
-		set input="",ans=""
+		set input=""
 		for  {
 			set input=$order(modulesArr(1,stopModule,input)) quit:input=""
 			if $list(modulesArr(0,input),1)'="&" {
