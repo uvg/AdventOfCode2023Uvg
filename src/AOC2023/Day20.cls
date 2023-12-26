@@ -35,11 +35,11 @@ ClassMethod Part1(verbose = 0) As %String [ Private ]
 
 ClassMethod ProcessPulse(ByRef arr, ByRef low, ByRef high, stopModuleInput As %String = "", stopModuleOutput As %String = "", stopOutputPulse As %Boolean = 0)
 {
-	do ..AddToQueue(.Queue,"broadcaster",0,"button")
+	do ..AddToQueue(.Queue,"broadcaster",0) //,"button")
 	for  {
 		set prio=$order(Queue("")) quit:'$length(prio)
 		set key=$order(Queue(prio,"")),data=Queue(prio,key) kill Queue(prio,key)
-		set name=$list(data,1),pulse=$list(data,2),from=$list(data,3)
+		set name=$list(data,1),pulse=$list(data,2) //,from=$list(data,3)
 		set:'pulse low=low+1
 		set:pulse high=high+1
 		if $length(stopModuleInput),name=stopModuleInput,'pulse return 1
@@ -69,17 +69,19 @@ ClassMethod ProcessPulse(ByRef arr, ByRef low, ByRef high, stopModuleInput As %S
 		set output=""
 		for  {
 			set output=$order(arr(0,name,output)) quit:output=""
-			do ..AddToQueue(.Queue,output,curOut,name)
+			do ..AddToQueue(.Queue,output,curOut) //,name)
 		}
 	}
 	quit 0
 }
 
-ClassMethod AddToQueue(ByRef Queue, name As %String, pulse As %Boolean, from As %String)
+// ClassMethod AddToQueue(ByRef Queue, name As %String, pulse As %Boolean, from As %String)
+
+ClassMethod AddToQueue(ByRef Queue, name As %String, pulse As %Boolean)
 {
 	set prio=$increment(Queue)
 	set key=$order(Queue(prio,""),-1)+1
-	set Queue(prio,key)=$listbuild(name,pulse,from)
+	set Queue(prio,key)=$listbuild(name,pulse) //,from)
 }
 
 ClassMethod Part2(verbose = 0) As %String [ Private ]
