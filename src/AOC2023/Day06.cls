@@ -54,7 +54,7 @@ ClassMethod Part2(verbose = 0) As %String [ Private ]
 		set:record["Distance: " dist=$zstrip($piece(record,"Distance: ",2),"*W")
 	}
 	if verbose write !,"time: ",time,", dist: ",dist
-	set i="",counter=0
+	set counter=0
 	for j=1:1:time {
 		if j*(time-j)>dist set counter=time-j-j+1 quit  //write !,time,":",dist,":",j
 	}
