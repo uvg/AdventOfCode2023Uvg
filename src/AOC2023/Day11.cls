@@ -138,7 +138,7 @@ ClassMethod GetEmptyColumns(ByRef grid, Output arr)
 
 ClassMethod GetEmptySpaces(fromX As %Integer, toX As %Integer, fromY As %Integer, toY As %Integer, ByRef grid, ByRef emptyR, ByRef emptyC)
 {
-	set countR=0,countC=0,lastY=$order(grid(""),-1)
+	set countR=0,countC=0
 	if fromY>toY {
 		set y=fromY,fromY=toY,toY=y
 	}
