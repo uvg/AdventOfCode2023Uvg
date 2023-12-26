@@ -9,24 +9,17 @@ ClassMethod Part1(verbose = 0) As %String [ Private ]
 {
 	do ..GetInputToArray(..#InputFile,.recordsArr)
 	//
-	set answer="",line=""
-	for {
-		set line=$order(recordsArr(line)) quit:line=""
-		set record=recordsArr(line)
-	}
-	set answer=..FindShortestPathPriorityQueue(.recordsArr,1,1,$length(recordsArr(1)),$order(recordsArr(""),-1),0,.visited,.path,,,3,0)
+	set answer=..FindShortestPathPriorityQueue(.recordsArr,1,1,$length(recordsArr(1)),$order(recordsArr(""),-1),0,.visited,.path,3,0)
 	if verbose zwrite path //,visited
 	quit answer
 }
 
-ClassMethod FindShortestPathPriorityQueue(ByRef grid, fromX As %Integer, fromY As %Integer, toX As %Integer, toY As %Integer, steps = 0, Output visited, ByRef path As %String = "", maxsteps As %Integer = 0, ByRef noVisitPlaces, maxConsecutive As %Integer, minConsecutive As %Integer)
+ClassMethod FindShortestPathPriorityQueue(ByRef grid, fromX As %Integer, fromY As %Integer, toX As %Integer, toY As %Integer, steps = 0, Output visited, ByRef path As %String = "", maxConsecutive As %Integer, minConsecutive As %Integer)
 {
 	//$$FindShortestPathPriorityQueue(.grid,2,1,8,4) from 2,1 to 8,4 with initial steps of 0 and no maxsteps boundry
 	//grid(y)=data
 	//There should be no holes in the grid so if y=5..10 then there should be grid(5),grid(6),grid(7),,,grid(10)
 	set minSteps=999999
-	if maxsteps,steps>maxsteps quit 999999
-	quit:$data(noVisitPlaces(fromX,fromY)) 999999
 	if fromX=toX,fromY=toY quit steps
 	do ..AddQueue(1,steps+$extract($get(grid(1)),2),2,1,$listbuild($listbuild(1,2,1)),.Queue)
 	do ..AddQueue(3,steps+$extract($get(grid(2)),1),1,2,$listbuild($listbuild(3,1,2)),.Queue)
@@ -36,8 +29,6 @@ ClassMethod FindShortestPathPriorityQueue(ByRef grid, fromX As %Integer, fromY A
 		//kill visited merge visited=Queue(steps,value,"v")
 		kill Queue(steps,key)
 		set dir=$list(data,1),fromX=$list(data,2),fromY=$list(data,3),path=$list(data,4)
-		if maxsteps,steps>maxsteps continue
-		continue:$data(noVisitPlaces(fromX,fromY))
 		set type=$extract($get(grid(fromY)),fromX)
 		continue:'$length(type)
 		set countDir=0
@@ -82,13 +73,8 @@ ClassMethod Part2(verbose = 0) As %String [ Private ]
 {
 	do ..GetInputToArray(..#InputFile,.recordsArr)
 	//
-	set answer="",line=""
-	for {
-		set line=$order(recordsArr(line)) quit:line=""
-		set record=recordsArr(line)
-	}
-	set answer=..FindShortestPathPriorityQueue(.recordsArr,1,1,$length(recordsArr(1)),$order(recordsArr(""),-1),0,.visited,.path,,,10,4)
-	i verbose zwrite path //,visited
+	set answer=..FindShortestPathPriorityQueue(.recordsArr,1,1,$length(recordsArr(1)),$order(recordsArr(""),-1),0,.visited,.path,10,4)
+	if verbose zwrite path //,visited
 	quit answer
 }
 
