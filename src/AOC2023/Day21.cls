@@ -19,7 +19,7 @@ ClassMethod Part1(verbose = 0) As %String [ Private ]
 	}
 	merge grid=recordsArr //,emptyGrid=grid
 	set $extract(grid(y),x)="."
-	set lastY=$order(grid(""),-1),lastX=$length(grid(1))
+	//set lastY=$order(grid(""),-1),lastX=$length(grid(1))
 	do ..GoOnPlots(.grid,x,y,64,.visited)
 	if verbose zwrite grid,visited(1)
 	set answer=visited(1)
