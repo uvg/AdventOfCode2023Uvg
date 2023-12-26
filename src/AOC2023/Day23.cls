@@ -9,7 +9,7 @@ ClassMethod Part1(verbose = 0) As %String [ Private ]
 {
 	do ..GetInputToArray(..#InputFile,.recordsArr)
 	//
-	set answer="",line=""
+	set answer=""
 	set fy=1,ty=$order(recordsArr(""),-1),(fx,tx)=0
 	for x=1:1:$length(recordsArr(fy)) {
 		if $extract(recordsArr(fy),x)="." {
@@ -24,30 +24,26 @@ ClassMethod Part1(verbose = 0) As %String [ Private ]
 		}
 	}
 	if $zstorage<(1024*1024) set $zstorage=1024*1024
-	set answer=..FindLongestPathQueue(.recordsArr,fx,fy,tx,ty,,,,,,.path)
+	set answer=..FindLongestPathQueue(.recordsArr,fx,fy,tx,ty,.path)
 	if verbose zwrite path
 	quit answer
 }
 
-ClassMethod FindLongestPathQueue(ByRef grid, fromX As %Integer, fromY As %Integer, toX As %Integer, toY As %Integer, steps As %Integer = 0, Output visited, path As %String = "", maxsteps As %Integer = 0, ByRef noVisitPlaces, maxPath As %String, part2 As %Boolean = 0) As %Integer
+ClassMethod FindLongestPathQueue(ByRef grid, fromX As %Integer, fromY As %Integer, toX As %Integer, toY As %Integer, maxPath As %String, part2 As %Boolean = 0) As %Integer
 {
 	//$$FindLongestPathQueue(.grid,2,1,8,4) from 2,1 to 8,4 with initial steps of 0 and no maxsteps boundry
 	//grid(y)=data
 	//I $e(data,x)="#" ==> can't visit there
 	//There should be no holes in the grid so if y=5..10 then there should be grid(5),grid(6),grid(7),,,grid(10)
-	set minSteps=999999
-	if maxsteps,steps>maxsteps quit 999999
-	quit:$data(noVisitPlaces(fromX,fromY)) 999999
-	if fromX=toX,fromY=toY quit steps
+	if fromX=toX,fromY=toY quit 0
 	kill ^||Queue
-	set ^||Queue(1)=$listbuild(steps,fromX,fromY,path)
+	set maxsteps=0
+	set ^||Queue(1)=$listbuild(0,fromX,fromY,"")
 	for  {
 		set key=$order(^||Queue("")) quit:key=""
 		set value=^||Queue(key) kill ^||Queue(key)
 		quit:value=""
 		set steps=$list(value,1),fromX=$list(value,2),fromY=$list(value,3),path=$list(value,4)
-		//if maxsteps,steps>maxsteps continue
-		continue:$data(noVisitPlaces(fromX,fromY))
 		set type=$extract($get(grid(fromY)),fromX)
 		if type="#"||'$length(type) continue
 		if $data(visited(fromX,fromY)),visited(fromX,fromY)>steps {
@@ -71,7 +67,7 @@ ClassMethod Part2(verbose = 0) As %String [ Private ]
 {
 	do ..GetInputToArray(..#InputFile,.recordsArr)
 	//
-	set answer="",line=""
+	set answer=""
 	set fy=1,ty=$order(recordsArr(""),-1),(fx,tx)=0
 	for x=1:1:$length(recordsArr(fy)) {
 		if $extract(recordsArr(fy),x)="." {
@@ -85,7 +81,7 @@ ClassMethod Part2(verbose = 0) As %String [ Private ]
 			quit
 		}
 	}
-	//set answer=..FindLongestPathQueue(.recordsArr,fx,fy,tx,ty,,,,,,.path,1)
+	//set answer=..FindLongestPathQueue(.recordsArr,fx,fy,tx,ty,.path,1)
 	//if verbose zwrite path
 	do ..GetConnections(.recordsArr,.arrConn)
 	do ..MinimizeConn(.arrConn,.arrTrails)
