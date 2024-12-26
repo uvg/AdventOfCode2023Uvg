@@ -1,10 +1,10 @@
- [![Quality Gate Status](https://community.objectscriptquality.com/api/project_badges/measure?project=intersystems_iris_community%2FAdventOfCode2023Uvg&metric=alert_status)](https://community.objectscriptquality.com/dashboard?id=intersystems_iris_community%2FAdventOfCode2023Uvg)
- [![Reliability Rating](https://community.objectscriptquality.com/api/project_badges/measure?project=intersystems_iris_community%2FAdventOfCode2023Uvg&metric=reliability_rating)](https://community.objectscriptquality.com/dashboard?id=intersystems_iris_community%2FAdventOfCode2023Uvg)
+ [![Quality Gate Status](https://community.objectscriptquality.com/api/project_badges/measure?project=intersystems_iris_community%2FAdventOfCode2024Uvg&metric=alert_status)](https://community.objectscriptquality.com/dashboard?id=intersystems_iris_community%2FAdventOfCode2024Uvg)
+ [![Reliability Rating](https://community.objectscriptquality.com/api/project_badges/measure?project=intersystems_iris_community%2FAdventOfCode2024Uvg&metric=reliability_rating)](https://community.objectscriptquality.com/dashboard?id=intersystems_iris_community%2FAdventOfCode2024Uvg)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat&logo=AdGuard)](LICENSE)
 
-# aoc-2023-uvg
-This is the source code for my advent of code 2023 using objectscript classes.
+# aoc-2024-uvg
+This is the source code for my advent of code 2024 using objectscript classes.
 
 
 ## AdventOfCode
@@ -26,7 +26,7 @@ zpm
 
 inside zpm shell:
 ```
-install aoc-2023-uvg
+install aoc-2024-uvg
 ```
 
 
@@ -34,7 +34,7 @@ install aoc-2023-uvg
 Clone/git pull the repo into any local directory
 
 ```
-$ git clone https://github.com/uvg/AdventOfCode2023Uvg.git
+$ git clone https://github.com/uvg/AdventOfCode2024Uvg.git
 ```
 
 Open the terminal in this directory and run:
@@ -51,7 +51,7 @@ $ docker-compose up -d
 
 
 ## How to Test it
-Put all your input data into files in a specific folder, and set the **Folder** parameter inside **Class AOC2023.Base**
+Put all your input data into files in a specific folder, and set the **Folder** parameter inside **Class AOC2024.Base**
 
 Open IRIS terminal. For docker:
 
@@ -61,21 +61,21 @@ $ docker-compose exec iris iris session iris
 
 And enter the following command to run the first day both parts:
 ```
-USER>do ##class(AOC2023.Day01).Run()
+USER>do ##class(AOC2024.Day01).Run()
 ```
 
-- Extended Run parameters:  _do ##class(AOC2023.Day01).Run(**verbose,part**)_ with
+- Extended Run parameters:  _do ##class(AOC2024.Day01).Run(**verbose,part**)_ with
 verbose =  1 ; will display some messages, Otherwise will just print the answer
 part = 1,2 ; run only first or second part of example, empty/0 will run both parts
 ````
 ; to run all exercises use
-for day=0:1:25 set zday=day set:zday<10 zday=0_day do $classmethod("AOC2023.Day"_zday,"Run")
+for day=0:1:25 set zday=day set:zday<10 zday=0_day do $classmethod("AOC2024.Day"_zday,"Run")
 ; to run all exercises while printing message use
-for day=0:1:25 set zday=day set:zday<10 zday=0_day do $classmethod("AOC2023.Day"_zday,"Run",1)
+for day=0:1:25 set zday=day set:zday<10 zday=0_day do $classmethod("AOC2024.Day"_zday,"Run",1)
 ; to run all exercises part 1 use
-for day=0:1:25 set zday=day set:zday<10 zday=0_day do $classmethod("AOC2023.Day"_zday,"Run",,1)
+for day=0:1:25 set zday=day set:zday<10 zday=0_day do $classmethod("AOC2024.Day"_zday,"Run",,1)
 ; to run all exercises part 2 use
-for day=0:1:25 set zday=day set:zday<10 zday=0_day do $classmethod("AOC2023.Day"_zday,"Run",,2)
+for day=0:1:25 set zday=day set:zday<10 zday=0_day do $classmethod("AOC2024.Day"_zday,"Run",,2)
 ````
 
 
